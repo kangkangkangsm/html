@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* section > p{
+            color : blue;
+        } */
+
+        a[href]{
+            background-color:aqua;
+        }
+        section {
+            /* color: aquamarine; */
+        }
+        section p,div{
+            /* color : blue;
+            background-color: aqua; */
+        }
+
+        a[target="_blank"]{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <p>수업 목록</p>
+    <section>
+        <div><a target="_self" href="javascript:;" onclick="confirm('자바가 좋냐?')">1.자바</a></div>
+        <div><a>2.DB</a></div>
+        <div>
+            <p>- 오라클</p>
+            <p>- MYSQL</p>
+        </div>
+        <div><a href="info.html;" target="_blank" >3.HTML/CSS</a></div>
+        <p>4.JAVASCRIPT</p>
+    </section>
+</body>
+</html>
