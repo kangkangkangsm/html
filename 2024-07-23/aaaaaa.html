@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+    #container {
+      width:500px;
+      height:600px;   
+      margin:20px auto;  
+      background-color:white;
+    }
+    div{
+        margin-bottom: 20px;
+    }
+
+    #detail{
+     
+     padding-top :10px;
+     width: 90%;
+     position: relative;
+     margin:20px auto;  
+ }
+    label{
+        float:right;
+        padding-right:40px;
+    }
+
+    #post {
+        width: 100px;
+        height: 50px;
+        border-radius: 20px;
+        margin-left: 40%;
+
+    }
+
+    body{
+        background-color: rgb(241, 235, 235);
+    }
+</style>
+<body>
+   
+        <div id="container">
+            <div id="detail">
+        <fieldset>
+        <legend><h2>로그인 정보</h2></legend>
+            
+        <div><span>아이디</span><label><input type="text" id="userid" placeholder="4자~10자 사이, 공백없이"></label></div>
+        <div><span>비밀번호</span><label> <input type="password" id="pwd" placeholder="문자와 숫자, 특수 기호 포함"></label></div>
+        <div><span>비밀번호 확인</span><label><input type="password" id="pwd2"></label></div>
+        </fieldset>
+    </div>
+
+    <div id="detail">
+        <fieldset>
+            <legend><h2>개인 정보</h2></legend>
+                
+            <div><span>이름</span><label> <input type="text" id="username" placeholder="이름적어"></label></div>
+            <div><span>메일 주소 </span><label><input type="email" id="email" placeholder="잘적어라"></label></div>
+            <div><span>연락처</span><label><input type="tel" id="tel"></label></div>
+        </fieldset>
+    </div>
+    <div id="detail">
+        <button id="post">제출</button>
+    </div>
+    </div>
+              
+</body>
+</html>

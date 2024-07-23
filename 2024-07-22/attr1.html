@@ -8,27 +8,51 @@
         /* section > p{
             color : blue;
         } */
-
-        section p {
-            color: aquamarine;
-        }
-        section p,div{
+        section > p{
+            /* section 안에있는 p태그 */
             color : blue;
+        }
+        div ~ p {
             background-color: aqua;
         }
+        
+/* section > p: 이 선택자는 <section> 요소의 직계 자식인 <p> 요소들을 선택합니다. 즉, <section> 바로 아래에 있는 <p> 요소들을 선택합니다. 예를 들어: */
+/* 
+html
+코드 복사
+<section>
+    <p>직계 자식 단락</p>
+    <div>
+        <p>직계 자식이 아니라 선택되지 않음</p>
+    </div>
+</section>
+<section> 바로 아래의 <p> 요소만 선택됩니다.
+
+section p: 이 선택자는 <section> 요소 내의 모든 <p> 요소들을 선택합니다. 즉, <section> 내부의 어떤 깊이에서든 <p> 요소들을 선택합니다. 예를 들어:
+
+html
+코드 복사
+<section>
+    <p>하위 단락</p>
+    <div>
+        <p>또 다른 하위 단락</p>
+    </div>
+</section>
+<section> 내의 모든 <p> 요소가 선택됩니다.
+     */
     </style>
 </head>
 <body>
     <p>수업 목록</p>
     <section>
-        <div>자바</div>
-        <div>DB</div>
+        <div>1. 자바</div>
+        <div>2. DB</div>
         <div>
-            <p>- 오라클</p>
-            <p>- MYSQL</p>
+            <p> - 오라클</p>
+            <p> - mysql</p>
         </div>
-        <div>HTML/CSS</div>
-        <div>JAVASCRIPT</div>
+        <div>3. html/css</div>
+        <p>4. javascript</p>
     </section>
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="a" style="font-weight: bold; font-size: ;">점심시간 전 마지막 복습</div>
+    <div>
+    <input placeholder="색상 입력" id="color">
+    <button onclick="changeColor()">텍스트 색 변경</button>  
+</div>
+<div>
+    <input placeholder="배경색상 입력" id="backcolor">
+    <button onclick="changebackColor()">배경색 변경</button>
+</div>
+    <script>
+        function changeColor() {
+            var change = document.querySelector("#a");
+            var color = document.querySelector("#color").value;
+            change.style.color = color;  
+        }
+        
+        function changebackColor() {
+            var backcolor = document.querySelector("#backcolor").value;
+           document.body.style.backgroundColor = backcolor;  
+        } 
+
+        
+    </script>
+</body>
+</html>
+</body>
+</html>

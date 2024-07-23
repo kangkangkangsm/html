@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>자바스크립트 이벤트</title>
+	<style>
+		#item {
+			position:relative;
+			width:500px;
+			height:auto;
+			padding:15px 20px;
+			margin:auto;
+		}
+		button {
+			background-color:rgba(255,255,255,0.7);;
+			padding:5px;
+			border:1px solid #ccc;
+			font-size:0.8em;			
+		}
+		.over {
+			position:absolute;
+			left:30px;
+			bottom:30px;
+		}
+		.detail {
+			width:400px;
+			text-align:left;			
+			line-height:1.8;
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<div id="item">
+		<img src="../images/포기.jpg" alt="" width="400" height="400">
+		<button onclick ="explainOpenNClose()" class="over" id="open">상세 설명 보기</button>
+		<div id="desc" class="detail">
+			<h4>쉽게 포기하는것도 능력입니다.</h4>
+			<p>북아메리카 원산으로 각지에서 관상초로 흔히 심고 있는 귀화식물이다. 
+                길가나 잔디밭에서 흔히 볼 수 있다. 아주 작은 씨앗을 무수히 많이 
+                가지고 있는데 바람을 이용해 씨앗들을 날려보내거나, 
+                뿌리줄기를 통해 동일한 개체들을 많이 만들어 냄으로써 번식한다. </p>
+			<button id="close" onclick ="explainOpenNClose()">상세 설명 닫기</button>
+		</div>
+	</div>	
+
+</body>
+</html>  
+
+<script>
+    function explainOpenNClose() {
+        var obj = document.querySelector("#desc");  // #desc 요소를 가져옵니다.
+        var btn = document.querySelector("#open");  // #open 버튼 요소를 가져옵니다.
+    
+        // 만약 obj 요소의 style.display가 "none"이거나 공백("")일 경우
+        if (obj.style.display == "none" || obj.style.display == "") {
+            obj.style.display = "block";  // obj 요소를 보이게(display: block) 설정합니다.
+            btn.style.display = "none";   // btn 요소를 숨깁니다.
+        } else {  // 그렇지 않으면 (obj 요소가 보이는 상태)
+            obj.style.display = "none";   // obj 요소를 숨깁니다.
+            btn.style.display = "block";  // btn 요소를 보이게(display: block) 설정합니다.
+        }
+    }
+    </script>

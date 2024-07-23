@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="../images/고양이.jfif" id="img1">
+</body>
+</html>
+<script>
+    // var obj = document.querySelector("#img1");
+    // obj.onclick = function(){
+    //     alert("하이!");
+    // }
+  
+    // var obj = document.querySelector("#img1");
+    // obj.onclick = test;
+
+    // function test(){
+    //     alert("하이!");
+    // }
+
+    var obj = document.querySelector("#img1");
+    obj.onclick = function(e){
+        // obj.src="../images/공룡.png";
+        // console.log("이벤트유형-->>",e.type);
+        // console.log("위치 X-->",e.pageX);
+        // console.log("위치 Y-->",e.pageY);
+        // console.log(e);
+    }
+    obj.addEventListener("mouseover", () => {
+        obj.src="../images/공룡.png";
+    });
+    obj.addEventListener("mouseout", () => {
+        obj.src="../images/고양이.jfif";
+    });
+    // obj.addEventListener("mouseover", function(){alert("test")});
+        // obj.addEventListener("mouseover", ()=>alert("test"));
+
+
+</script>
