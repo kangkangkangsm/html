@@ -23,9 +23,21 @@
     #sidebar{
         width:30%;
         height: 1500px;
-        background-color: #a8636346;
+        background-color: #afcaf7;
         float: left;
         position: relative;
+    }
+    #sidebara{
+        height: 1400px;
+        
+        position: relative;
+    }
+    #sidebarb{
+        
+        position: relative;
+        font-size: 50px;
+        text-align: center;
+        color:#8b8b8b
     }
     #container {
       width:1200px;
@@ -38,6 +50,12 @@
             height: 250px;
             background-image : url('../images/포기.jpg');
             float : left;
+            border-radius: 20%;
+            display: inline-block;
+            animation: ani3 3s infinite linear;
+            filter: drop-shadow(3px 3px 3px #000000);            
+            
+           
     }   
 
     #main{
@@ -62,31 +80,62 @@
     }
 
     #namecard{
+        padding-top:5%;
         font-size: 20px;
         padding-left: 7%;
+        position: relative;
+        margin-bottom: 250px;
+       
     }
+    #namecard2{
+
+        text-align: center;
+        font-size: 40px;
+        color: #4b4949b4;
+        padding-bottom: 10px;
+        padding-top:050px;
+        font-weight: bold;
+            }
 
     #detail{
      
-        padding-top :20px;
         text-align: center;
-        width: 49%;
-        float: left;
-        position: relative;
+        font-size: 30px;
+        color: #4b4949b4;
+        padding-bottom: 30px;
+        padding-top:050px;
+        font-weight: bold;
     }
 
     #sns{
        
-        width: 49%;
         text-align: center;
-        float: left;
-        position: relative;
+        font-size: 30px;
+        color: #4b4949b4;
+        padding-bottom: 30px;
+        padding-top:050px;
+        font-weight: bold;
     }
 
    .subtitle
     {
         font-size: 40px;
     }
+
+    @keyframes ani3 {
+            0% {
+                transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+         }
+            50%{
+                transform: perspective(500px) rotateX(0deg) rotateY(10deg);
+                
+            }
+            100%{
+                transform: perspective(500px) rotateX(0deg) rotateY(0deg);
+                
+            }
+        }
+
 
     </style>
 </head>
@@ -95,10 +144,13 @@
     <div id="container">
         <!-- 사이드바 -->
         <aside id="sidebar">
+            <aside id="sidebara">
             <div id="namecard">
                 <img src="../images/포기.jpg" alt="" class="box">
+            </div>
+            <div id="namecard2"    
                 <h1>Kang Seommin</h1>    
-                <p>자바가 훨씬 재밌음</p>
+               
             </div>
             <div id="detail">
                 <p>Incheon, Korea</p>
@@ -107,7 +159,11 @@
             <div id="sns">
                 <h2>SNS</h2>
                 <h3><a href="#" style="background-color: #ccc;">클릭!</a></h3>
-            </div>           
+            </div>   
+        </aside>
+        <aside id="sidebarb">
+            <div id="time"></div>
+        </aside>
         </aside>
 
         <div id="main">
@@ -180,3 +236,16 @@
     </div>
 </body>
 </html>
+
+
+<script>
+     setInterval(()=>{
+        var time = new Date();
+        var obj = document.querySelector("#time");
+        obj.innerHTML = time.getHours() +" : "+  
+          time.getMinutes() +" : "+
+          time.getSeconds();
+  },1000);
+setTimeout(fnAlert, 5000);
+  
+</script>

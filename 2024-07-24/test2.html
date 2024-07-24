@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form {
+          margin-bottom:30px;
+        }
+        input[type="text"] {
+          width:30px;
+          height:20px;
+          text-align: center;
+        }
+        button {
+          margin-left:10px;
+        }
+        table {
+          width:300px;      
+        }
+        table, td {
+          border:1px solid #ccc;
+          border-collapse: collapse;
+        }
+        td {
+          padding:10px;
+        }
+      </style>
+
+      
+</head>
+<body>
+    <div>
+        <input type="text" id ="row"> 행
+        <input type="text" id ="col"> 열 
+        <button type="button" onclick="makerc();">클릭!</button>
+    </div>
+    <div id="contents"></div>
+</body>
+</html>
+
+<script>
+function makerc() {
+    var rowcnt = document.querySelector("#row").value;
+    var colcnt = document.querySelector("#col").value;
+    var newtable = document.createElement("table");
+
+    for(var i =0; i<rowcnt; i++){
+        var newrow = document.createElement("tr");
+        
+
+        for(var j=0; j<colcnt; j++){
+            var newcol = document.createElement("td");
+            newcol.innerHTML = i + "," + j;
+            newrow.appendChild(newcol);
+            
+        }
+        newtable.appendChild(newrow);
+    }
+
+    var contents = document.querySelector("#contents");
+    contents.appendChild(newtable);
+ 
+    
+}
+
+</script>

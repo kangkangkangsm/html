@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 150px;
+            height: 150px;
+            border: 1px solid #eee;
+            display: inline-block;
+            margin: 20px;
+            background-color: aquamarine;
+            transition: 3s;
+        }
+        #box1:hover {
+            transform: rotate(200deg);
+        }
+        #box2:hover {
+            transform: rotate(-10deg);
+        }
+        #box3:hover {
+            transform: rotateY(1000deg);
+        }
+        #box4:hover {
+            transform: rotate3d(4,4,-4,50deg);
+        }
+        #box5:hover {
+            transform: skewX(20deg);
+        }
+        #box6:hover {
+            transform: scaleX(2);
+        }
+        #box7:hover {
+            transform: scale(2);
+        }
+      
+    </style>
+</head>
+<body>
+    <div class="box" id="box1"></div>
+    <div class="box" id="box2"></div>
+    
+    <div style="perspective: 300px;">
+    <div class="box per" id="box3">box3</div>
+    </div>
+    
+    <div class="box" id="box4"></div>
+    <div class="box" id="box5"></div>
+    <div class="box" id="box6"></div>
+    <div class="box" id="box7"></div>
+</body>
+</html>
