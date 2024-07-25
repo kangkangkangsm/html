@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            border: 1px solid #a6c1ee;
+            background-color: #a6c1ee;
+            display:flex;
+            flex-warp: wrap;
+        }
+
+        .type1{
+            justify-content: space-around;
+            /* 중앙집중형 배열 */
+           /* justify-content: flex-start; */
+           /* 왼쪽 */
+        }
+        .type2{
+            justify-content: space-between;
+            /* 처음과 끝을 양쪽에 붙이고 균일한 간격으로 배열 */
+            /* justify-content: center; */
+            /* 센터 */
+            /* justify-content: flex-end; */
+            /* 오른쪽 */
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: #fbc2eb;
+            margin: 5px;
+            font-size: 40px;
+            color: #a6c1ee;
+            line-height:100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container type1">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+</div>
+<div class="container type2">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+</div>
+</body>
+</html>

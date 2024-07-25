@@ -1,18 +1,78 @@
-/* <link rel="stylesheet" href="../css/style.css"> */
-
-.box{
-    width: 400px;
-    height: 250px;
-    border: 1px solid #b14c4c00;
-}
-.grad{
-    /* background-color: rgb(123, 219, 219); */
-   background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
-}
-.grad2{
-    /* background-color: rgb(123, 219, 219); */
-    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
-}
-.grad3{
-    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-}
+/* #header 섹션 */
+#header {
+    width: 100%; /* 너비를 100%로 설정 */
+    border-bottom: 1px solid #ddd; /* 아래 테두리를 회색(ddd) 1픽셀 두께의 실선으로 설정 */
+    background-color: #fff; /* 배경색을 흰색으로 설정 */
+  }
+  
+  #header h1 {
+    padding: 10px; /* 안쪽 여백을 10픽셀로 설정 */
+    margin: 0; /* 바깥 여백을 없앰 */
+    font-weight: bold; /* 글꼴을 굵게 설정 */
+    font-size: 25px; /* 글꼴 크기를 25픽셀로 설정 */
+  }
+  
+  /* #container 섹션 */
+  #container {
+    padding: 50px; /* 안쪽 여백을 50픽셀로 설정 */
+  }
+  
+  /* .content-nav 섹션 */
+  .content-nav {
+    position: fixed; /* 위치를 고정 */
+    z-index: 100; /* z-index를 100으로 설정하여 다른 요소들보다 위에 위치하게 함 */
+    top: 61px; /* 위쪽 여백을 61픽셀로 설정 */
+    right: 0; /* 오른쪽 정렬 */
+    width: 420px; /* 너비를 420픽셀로 설정 */
+    border: 1px solid #ddd; /* 테두리를 회색(ddd) 1픽셀 두께의 실선으로 설정 */
+    background-color: #fff; /* 배경색을 흰색으로 설정 */
+  }
+  
+  .content-nav > h2 {
+    padding: 15px 20px; /* 위쪽과 아래쪽 여백을 15픽셀, 왼쪽과 오른쪽 여백을 20픽셀로 설정 */
+    margin: -24px 40px 0 40px; /* 바깥 여백을 위쪽 -24픽셀, 오른쪽과 왼쪽 40픽셀로 설정 */
+    background-color: black; /* 배경색을 검정으로 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    font-weight: 400; /* 글꼴을 중간 정도 굵기로 설정 */
+    font-size: 18px; /* 글꼴 크기를 18픽셀로 설정 */
+    color: #fff; /* 글자색을 흰색으로 설정 */
+  }
+  
+  .content-nav > ul {
+    height: 100%; /* 높이를 100%로 설정 */
+    padding: 50px 40px; /* 위쪽과 아래쪽 여백을 50픽셀, 왼쪽과 오른쪽 여백을 40픽셀로 설정 */
+    margin-top: -24px; /* 위쪽 마진을 -24픽셀로 설정하여 h2의 배경과 겹치지 않도록 조정 */
+  }
+  
+  .content-nav > ul li {
+    font-weight: bold; /* 글꼴을 굵게 설정 */
+    font-size: 20px; /* 글꼴 크기를 20픽셀로 설정 */
+  }
+  
+  .content-nav > ul li a {
+    text-decoration: none; /* 링크에 밑줄 없앰 */
+  }
+  
+  .content-nav > ul li a:visited,
+  .content-nav > ul li a:link {
+    color: black; /* 링크 글자색을 검정으로 설정 */
+  }
+  
+  .content-nav > ul > li + li {
+    margin-top: 35px; /* 첫 번째 리스트 항목을 제외하고 위쪽 마진을 35픽셀로 설정하여 항목들 사이의 간격 조정 */
+  }
+  
+  .content-nav > ul > li > ul {
+    margin-top: 20px; /* 위쪽 마진을 20픽셀로 설정하여 하위 목록과 상위 항목 사이의 간격 조정 */
+  }
+  
+  .content-nav > ul > li > ul > li {
+    display: block; /* 요소를 블록 레벨로 표시 */
+  }
+  
+  .content-nav > ul > li > ul > li > a {
+    font-weight: 400; /* 글꼴을 중간 정도 굵기로 설정 */
+    font-size: 14px; /* 글꼴 크기를 14픽셀로 설정 */
+    color: #666; /* 글자색을 회색으로 설정 */
+  }
+  

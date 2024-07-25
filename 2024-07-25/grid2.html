@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            
+            width: 600px;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-template-rows: repeat(3,100px);
+            background-color:azure;
+        }
+        .box{
+            padding :10px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        .box1{
+         background-color: #fad0c4;
+         grid-column: 1/4;   
+        }
+        .box2{
+         background-color: #a1c4fd;  
+         grid-column: 4/5; 
+        }
+        .box3{
+         background-color: #ffd1ff;   
+         grid-row: 2/4;
+        }
+        .box4{
+         background-color: #a6f1ee;
+         grid-column: 3/5;   
+        }
+        .box5{
+         background-color: #a6f1ae;
+         grid-column: 2/4;   
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div id="container">
+    <div class="box box1">박스1</div>
+    <div class="box box2">박스2</div>
+    <div class="box box3">박스3</div>
+    <div class="box box4">박스4</div>
+    <div class="box box5">박스5</div>
+    
+    </div>
+</body>
+</html>

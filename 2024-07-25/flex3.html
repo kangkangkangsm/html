@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            height: 150px;
+            border: 1px solid #a6eec4;
+            background-color: #a6c1ee;
+            display:flex;
+            flex-warp: wrap;
+        }
+
+        .type1{
+           align-items:stretch;
+           /* 박스 높이가 설정되있지않을떄 패팅값빼고 세로로 다채움  */
+        }
+        .type2{
+            align-items:center ;
+            /* 세로 가운데 정렬 */
+        }
+        .box{
+            width: 100px;
+            padding:10px;
+            background-color: #fbc2eb;
+            margin: 5px;
+            font-size: 30;
+            color: #a6c1ee;
+            
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container type1">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+</div>
+<div class="container type2">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+</div>
+</body>
+</html>
