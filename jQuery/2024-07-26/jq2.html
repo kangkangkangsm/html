@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <img src ="/images/고양이.jfif" >
+    <img src ="/images/포기.jpg" >
+    
+    <button id ="btn">클릭!</button>
+</body>
+</html>
+
+<script>
+    // $("#text").css("color","red");
+   
+    //클릭하면 이미지 변경!
+    $("#btn").on("click", () => {
+       $("img").attr("src", "/images/공룡.png");
+            });
+    
+</script>

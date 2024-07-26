@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <!-- checked 체크상태 -->
+    <label><input type ="checkbox" checked> <span>자바</span> </label> <br>
+    <label><input type ="checkbox"> <span>오라클</span> </label><br>
+    <label><input type ="checkbox"> <span>html.css</span> </label><br>
+    <label><input type ="checkbox"> <span>javascript</span> </label><br>
+    <div>
+    <button id="btn">클릭!</button>
+    </div>
+    <hr>
+     <!-- checked 체크상태 -->
+     <label><input type ="radio" name="subject" value="java" checked> <span>자바</span> </label> <br>
+     <label><input type ="radio" name="subject" value="oracle" > <span>오라클</span> </label><br>
+     <label><input type ="radio" name="subject" value="html" > <span>html.css</span> </label><br>
+     <label><input type ="radio" name="subject" value="js" > <span>javascript</span> </label><br>
+     <div>
+     <button id="btn2">클릭!</button>
+     </div>
+</body>
+</html>
+
+<script>
+
+    $("#btn").on("click",()=>{
+        $(":checked").next().css("color","red");
+        // checked 체크박스에 선택됐을때 그선택된부분 바꿈
+    });
+
+    $("#btn2").on("click",()=>{
+        $("input[name='subject']:checked").next().css("color","red");
+        // name이 subject인애들중 체크박스에 선택됐을때 그선택된부분 바꿈
+    });
+
+    $("#btn2").on("click",()=>{
+        var item = $("input[name='subject']:checked");
+        console.log(item.val());
+        // 내가 선택한 값을 알고싶다 val
+    });
+</script>

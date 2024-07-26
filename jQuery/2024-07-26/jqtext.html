@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jquery-3.7.1.min.js"></script> 
+</head>
+<body>
+    <div>
+        <label><input type="radio" name="subject" value="java"><span>자바</span></label>
+    </div>
+    <div>
+        <label><input type="radio" name="subject" value="oracle"><span>오라클</span></label>
+    </div>
+    <div>
+        <label><input type="radio" name="subject" value="html"><span>html/css/javascsript</span></label>
+    </div>
+    <div>
+        <label><input type="radio" name="subject" value="jquery"><span>jQuery</span></label>
+    </div>
+    <div><button style="margin-top : 20px;">클릭!</button></div>
+    <hr>
+    <div><img width="300px" height="300px" 
+        src="" style="display: none;" alt="이미지"></div>
+</body>
+</html>
+<script>    
+
+$("button").on("click", () => {
+    // 체크된 라디오 버튼 중에서 'subject'라는 이름을 가진 입력의 값을 가져옵니다.
+    var subject = $("input[name='subject']:checked").val();
+    
+    // `<img>` 요소를 선택합니다.
+    var img = $("img"); 
+    
+    // `<img>` 요소의 display 속성을 'inline'으로 설정하여 이미지가 보이도록 합니다.
+    img.css("display", "inline");
+    
+    // 체크된 입력값에 따라 이미지의 소스 경로를 설정합니다.
+    if (subject == "html") {
+        // 'html' 값이 선택된 경우, HTML 책 이미지를 설정합니다.
+        img.attr("src", "/images/html책.jfif");
+    } else if (subject == 'java') {
+        // 'java' 값이 선택된 경우, 자바 책 이미지를 설정합니다.
+        img.attr("src", "/images/자바.png");
+    } else if (subject == 'oracle') {
+        // 'oracle' 값이 선택된 경우, 오라클 책 이미지를 설정합니다.
+        img.attr("src", "/images/오라클.jfif");
+    } else if (subject == 'jquery') {
+        // 'jquery' 값이 선택된 경우, jQuery 책 이미지를 설정합니다.
+        img.attr("src", "/images/jquery책.jfif");
+    }
+
+        // 파일명 같을 경우
+        // var link = "images/" + subject + ".jpg";
+        // img.attr("src", link); 
+    });
+
+
+    // $("button").on("click", () =>{
+    //     var subject = $("input[name='subject']:checked").val();
+    //     var img = $("img"); 
+    //     img.css("display", "inline");              
+    //     if(subject == 'html'){
+    //         img.attr("src", "/images/html책.jfif");       
+    //     } else if(subject == 'java'){
+    //         img.attr("src", "/images/자바.png");
+    //     } else if(subject == 'oracle'){
+    //         img.attr("src", "/images/오라클.jfif");
+    //     } else if(subject == 'jquery'){
+    //         img.attr("src", "/images/jquery책.jfif");
+    //     }
+// });
+        
+</script>

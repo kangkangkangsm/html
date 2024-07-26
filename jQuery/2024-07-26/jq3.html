@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/jQuery/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <ul>
+        <li>자바</li>
+        <li>오라클</li>
+        <li><span>html/css</span></li>
+        <li>javascript</li>
+        <li>jquery</li>
+    </ul>
+    <button id="btn">클릭!</button>
+</body>
+</html>
+<script>
+    
+$("#btn").on("click",()=>{
+    // $("li:has(span)").css("color","red"); //li 안에 span태그있는 색상바꾸기
+    // $("li:eq(2)").css("color","red"); // li 인덱스가 2번째인 속성 바꾸기
+    // $("li:gt(2)").css("color","red"); // 인덱스 2번째 이후 색상 변경 
+    // $("li:lt(2)").css("color","red"); // 인덱스 2번째 이전 색상 변경 
+    // $("li:even").css("color","red"); // 홀 even 짝 odd <- 인덱스가 o부터 시작하기때문에 바꿔줘야함
+    // $("li:first").css("color","red"); //처음
+    $("li:last").css("color","red"); //마지막
+    //반복문 찾아와 
+    
+   
+
+})
+</script>

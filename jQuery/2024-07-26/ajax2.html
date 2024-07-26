@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="../jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta charset="EUC-KR">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert title here</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table tr td {
+            border: 1px solid #abc;
+            text-align: center;
+            padding: 8px;
+        }
+
+        button {
+            margin: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <tr>
+                <td>아이디</td>
+                <td>이름</td>
+                <td>이메일</td>
+                <td>웹사이트</td>
+                <td>상세보기</td>
+            </tr>
+            <tr v-for="(item, index) in list" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.website }}</td>
+                <td><button @click="fnInfo(item)">상세보기</button></td><
+            </tr>
+        </table>
+        <div v-if="info">
+            <p>이름: {{ info.name }}</p>
+            <p>이메일: {{ info.email }}</p> 
+        </div>
+        <div v-model = "info.name"></div>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    name: "홍길동",
+                    list: [],
+                    info: null, 
+                    isInfo : false
+                };
+            },
+            methods: {
+                fnGetList() {
+                    $.ajax({
+                        url: "https://jsonplaceholder.typicode.com/users",
+                        dataType: "json",
+                        type: "GET",
+                        success: (data) => {
+                            this.list = data;
+                        }
+                    });
+                },
+                fnInfo(item) {
+                    this.info = item;
+                       
+                }
+            },
+
+
+
+
+            mounted() {
+                this.fnGetList();
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
