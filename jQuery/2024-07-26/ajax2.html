@@ -1,89 +1,108 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
+    <!-- jQuery 라이브러리 포함 -->
     <script src="../jquery-3.7.1.min.js"></script>
+    <!-- Vue.js 라이브러리 포함 -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <meta charset="EUC-KR">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insert title here</title>
+    <meta charset="EUC-KR"> <!-- 문자 인코딩 설정 -->
+    <title>Insert title here</title> <!-- 문서 제목 -->
     <style>
-        table {
-            width: 100%;
+        /* 테이블, 행, 열 및 헤더의 기본 스타일 설정 */
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid;
+            text-align: center;
             border-collapse: collapse;
         }
 
-        table tr td {
-            border: 1px solid #abc;
-            text-align: center;
-            padding: 8px;
-        }
-
-        button {
-            margin: 3px;
+        /* 셀의 패딩 설정 */
+        tr,
+        td,
+        th {
+            padding: 5px 10px;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <table>
+        <!-- Vue.js의 조건부 렌더링으로 isInfo가 false일 때 테이블을 표시 -->
+        <table v-if="!isInfo">
             <tr>
-                <td>아이디</td>
-                <td>이름</td>
-                <td>이메일</td>
-                <td>웹사이트</td>
-                <td>상세보기</td>
+                <!-- 테이블 헤더 정의 -->
+                <th>번호</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>웹사이트</th>
+                <th></th>
             </tr>
-            <tr v-for="(item, index) in list" :key="index">
-                <td>{{ index + 1 }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.email }}</td>
-                <td>{{ item.website }}</td>
-                <td><button @click="fnInfo(item)">상세보기</button></td><
+            <!-- list 배열의 각 항목을 반복하여 테이블 행을 생성 -->
+            <tr v-for="(item, index) in list">
+                <td>{{index+1}}</td>
+                <td>
+                    <!-- 인덱스가 5 이하일 때 이름을 파란색으로 표시 -->
+                    <span v-if="index+1 <= 5" style="color:blue;">{{item.name}}</span>
+                    <span v-else>{{item.name}}</span>
+                </td>
+                <td>{{item.email}}</td>
+                <td>{{item.website}}</td>
+                <!-- 상세보기 버튼 클릭 시 fnInfo 메서드를 호출 -->
+                <td><button @click="fnInfo(item)">상세보기</button></td>
             </tr>
         </table>
-        <div v-if="info">
-            <p>이름: {{ info.name }}</p>
-            <p>이메일: {{ info.email }}</p> 
+        <!-- isInfo가 true일 때 정보 표시 div를 표시 -->
+        <div v-if="isInfo">
+            <div>이름 : {{info.name}}</div>
+            <div>이메일 : {{info.email}}</div>
+            <!-- 되돌아가기 버튼 클릭 시 isInfo를 false로 설정하여 테이블로 돌아가기 -->
+            <div><button @click="isInfo = false">되돌아가기</button></div>
         </div>
-        <div v-model = "info.name"></div>
     </div>
+
     <script>
+        // Vue.js 애플리케이션 생성
         const app = Vue.createApp({
             data() {
                 return {
-                    name: "홍길동",
-                    list: [],
-                    info: null, 
-                    isInfo : false
+                    name: "홍길동", // 기본 이름
+                    list: [], // 사용자 목록을 저장할 배열
+                    info: {}, // 선택된 사용자 정보를 저장할 객체
+                    isInfo: false // 상세보기 모드 여부를 나타내는 플래그
                 };
             },
             methods: {
+                // 사용자 목록을 가져오는 메서드
                 fnGetList() {
+                    var self = this;
                     $.ajax({
-                        url: "https://jsonplaceholder.typicode.com/users",
-                        dataType: "json",
-                        type: "GET",
-                        success: (data) => {
-                            this.list = data;
+                        url: "https://jsonplaceholder.typicode.com/users", // 데이터를 가져올 URL
+                        dataType: "json", // 응답 데이터 타입
+                        type: "GET", // HTTP 메서드
+                        data: {}, // 추가 데이터 없음
+                        success: function (data) {
+                            // 데이터 가져오기에 성공하면 list에 데이터를 저장
+                            self.list = data;
                         }
                     });
                 },
+                // 상세보기 버튼 클릭 시 호출되는 메서드
                 fnInfo(item) {
-                    this.info = item;
-                       
+                    var self = this;
+                    self.info = item; // 선택된 사용자 정보를 info에 저장
+                    this.isInfo = true; // 상세보기 모드로 전환
                 }
             },
-
-
-
-
             mounted() {
+                // 컴포넌트가 마운트된 후 사용자 목록을 가져옴
                 this.fnGetList();
             }
         });
-
+        // Vue.js 애플리케이션을 '#app' 엘리먼트에 마운트
         app.mount('#app');
     </script>
 </body>
