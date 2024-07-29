@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .btn {
+            background-color: rgb(141, 185, 39);
+            color: white;
+            padding: 15px;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .menu {
+            background-color: #f9f9f9;
+            width: 150px;
+            box-shadow: 1px 3px 8px 3px #e7e3e3;
+            display: none;
+        }
+        .menu a {
+            display: block;
+            padding: 10px;
+        }
+        .top-menu {
+            display: inline-block;
+            height: 200px;
+        }
+        .top-menu:hover .menu {
+            display: block;
+        }
+        .menu a:hover {
+            background-color: #ccc;
+        }
+        a:link, a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+      
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="top-menu">
+            <button class="btn">Dropdown</button>
+            <div class="menu">
+                <a href="javascript:;" @click="image(1)">이미지 1</a>
+                <a href="javascript:;" @click="image(2)">이미지 2</a>
+                <a href="javascript:;" @click="image(3)">아무내용 3</a>
+            <!--                 
+                <a href="javascript:;" @click="menu = 1">이미지 1</a>
+                <a href="javascript:;" @click="menu = 2">이미지 2</a>
+                <a href="javascript:;" @click="menu = 3">아무내용 3</a>
+            -->
+            </div>
+            <div v-if="menu ==1"><img src ="../images/html책.jfif" ></div>
+            <div v-if="menu ==2"><img src ="../images/jquery책.jfif" ></div>
+            <div v-if="menu ==3">바바바바바바ㅏ바바바ㅏ밥</div>
+
+        </div>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    menu : ''
+                };
+            },
+            methods: {
+                image(menu){
+                    this.menu = menu;
+                },
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+</html>

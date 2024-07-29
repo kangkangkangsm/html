@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app"> 
+        <h3>===========이름 바꾸기 </h3>
+       <div>{{name}}</div> 
+       <div>
+        <input type="text" placeholder="이름 입력" v-model="newName" >
+        <!-- 연결하기위해 2가지방법 (1) value (2) v-model -->
+        <!-- {{newName}} -->
+        <button @click="fnChangeName()">이름 변경</button>
+        <!-- 파라미터 보낼거 없으면 () 생략 가능함  -->
+    </div>
+    <hr>
+    <h3>===========나이 보이게 하기</h3>
+    <div v-if="isAge">{{age}}</div>
+    <div>
+        <button @click="fnViewAge()">
+            <template v-if="!isAge">나이 보이게 하기</template>
+            <template v-else>나이 감추기</template>
+
+        </button>
+        <!-- 객체 생성하면서 바꾸는 방법 아래  -->
+        <!-- <button @click="fnViewAge()">{{buttontxt}}</button> -->
+    </div>
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+            data() {
+                return {
+                        //변수 영역, ex) name: '홍길동', age : 20
+                        name : "홍길동",
+                        age : 20,
+                        newName : "",
+                        isAge : false,
+                        buttontxt: "나이 보이게 하기"
+                };
+            },
+            methods: {
+               // 메소드 영역
+               fnChangeName(){
+                this.name = this.newName //this 꼭붙여야함!
+                this.newName = "";
+               },
+               fnViewAge(){
+                this.isAge = !this.isAge;
+                // (1) 방법 3항연산자
+                // this.buttontxt = this.isAge ? "나이 감추기" : "나이 보이게 하기"
+                // (2) 방법 IF문
+                //    if(this.isAge == false){
+                //     this.buttontxt="나이 보이게 하기"
+                //    }else{
+                //     this.buttontxt="나이 감추기"
+                //    }
+               }
+            },
+            mounted() {
+                // 처음 시작할 때 실행되는 부분 
+            }
+        });
+        app.mount('#app');
+</script>
+​

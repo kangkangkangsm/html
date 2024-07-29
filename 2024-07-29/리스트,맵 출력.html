@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<style>
+         table,tr,td,th {
+            border: 1px solid;
+            text-align: center;
+            border-collapse: collapse ;
+        }
+
+        tr,td,th{
+            padding : 5px 10px;
+        }
+
+</style>
+<body>
+    <div id="app"> 
+            <button @click="fnList()">클릭!</button>
+            <hr>
+            <div v-for="item in list">{{item}}</div>
+            <hr>
+            <div v-for="(item, index) in list">{{index+1}}.{{item}}</div>
+             <!-- 인덱스 써먹기 -->
+            <hr>
+            <div v-for="(item,index) in userList">{{item.name}}</div>
+            <hr>
+            <!-- 테이블로 리스트 출력하기  -->
+            <table>
+                <tr>
+                <th>이름</th>
+                <th>나이</th>
+                <th>사는곳</th>
+                </tr>
+                <!-- 뷰 버전2에선 가능  -->
+                <!-- <tr v-for="item in userList" v-if="item.age >= 30" > -->
+                <!-- 뷰 버전3에선 가능  -->
+                <!-- <tr v-for="item in userList">
+                 <template v-if ="item.age >=30 "> -->
+                <tr v-for="item in userList">    
+                <td>
+                    <span v-if = "item.age>=30" style="color:blue"> {{item.name}} </span>
+                    <span v-else>{{item.name}}</span>
+                    
+                </td>
+                <td>{{item.age}}</td>
+                <td>{{item.addr}}</td>
+                </tr>
+            </table>
+            <hr>
+            
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+            data() {
+                return {
+                    // 변수 영역, ex) name : '홍길동', age : 20
+                    list : ["자바", "오라클", "thml/css", "javascript"],
+                    userList : [
+                        {name : "홍길동", age :20, addr:"인천"},
+                        {name : "유재석", age :52, addr:"서울"},
+                        {name : "강호동", age :13, addr:"남양주"},
+                        {name : "신동엽", age :34, addr:"함경북도"}
+                    ]
+                };
+            },
+            methods: {
+               // 메소드 영역 
+               fnList(){
+                for(var i=0; i<this.list.length; i++){
+                   alert(this.list[i]);
+                }
+               }
+            },
+            mounted() {
+                // 처음 시작할 때 실행되는 부분
+            }
+        });
+        app.mount('#app');
+</script>
