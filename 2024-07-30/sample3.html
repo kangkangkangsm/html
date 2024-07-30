@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta charset="EUC-KR">
+    <title>Insert title here</title>
+    <style>
+        input {
+            width : 80px;
+            margin-right : 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <input placeholder="학번" v-model="aaa">
+    <input placeholder="학년" v-model="bbb">
+    <div><button @click="save1()">저장</button></div>
+</div>
+
+
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                aaa : "",
+                bbb : ""       
+            };
+        },
+        methods: {
+           save1(){
+                $.ajax({
+                    url : `http://localhost:3000/save1?stuNo=${this.aaa}&stuGrade=${this.bbb}`,
+                    dataType : "json",
+                    type : "GET",
+                    data : {},
+                    success : function(data){
+                        console.log(data);
+                    }
+                });
+            }
+        },
+        mounted() {
+           
+        }
+    });
+    app.mount('#app');
+</script>
