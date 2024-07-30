@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <meta charset="EUC-KR">
     <title>Insert title here</title>
     <style>
-         table,
+        table,
         tr,
         td,
         th {
@@ -20,9 +21,15 @@
         th {
             padding: 5px 10px;
         }
-
-        td > input {
-            width: 40px;
+        td input {
+            width: 70px;
+        }
+        .txt {
+            font-weight: bold;
+        }
+        .txt2 {
+            color : blue;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -30,16 +37,14 @@
 <body>
     <div id="app">
         <input placeholder="검색어" v-model="keyword" @keyup.enter="fnGetList">
-        <!-- @keyup.enter= 엔터쳤을때 실행 -->
-         <select v-model="stuGrade" @change="fnGetList">
-            <!-- #change 변화할때마다 다시검색하겠다. 선택했을때 바로 바뀌는거 -->
+        <select v-model="stuGrade" @change="fnGetList">
             <option value="">::전체::</option>
             <option value="1">1학년</option>
             <option value="2">2학년</option>
             <option value="3">3학년</option>
         </select>
         <button @click="fnGetList">검색</button>
-        <div style="margin: 20px;"></div>
+        <div style="margin-top : 20px;"></div>
         <table>
             <tr>
                 <th>학번</th>
@@ -57,9 +62,9 @@
                     <td><input v-model="item.STU_DEPT"></td>
                     <td><input v-model="item.STU_GRADE"></td>
                     <td><input v-model="item.STU_GENDER"></td>
-                    <td><button @click="">저장</button></td>
+                    <td><button @click="fnSave(item)">저장</button></td>
                 </template>
-                <template v-else>            
+                <template v-else>
                     <td>{{item.STU_NO}}</td>
                     <td>{{item.STU_NAME}}</td>
                     <td>{{item.STU_DEPT}}</td>
@@ -69,7 +74,8 @@
                         <span v-else>여자</span>
                     </td>
                     <td><button @click="fnUpdate(item.STU_NO)">수정</button></td>
-                </template>
+                </template>    
+                
                 <td><button @click="fnRemove(item.STU_NO)">삭제</button></td>
             </tr>
         </table>
@@ -82,14 +88,16 @@
                     list : [],
                     keyword : "",
                     updateStuNo : "",
-                    stuGrade: " "
+                    stuGrade : ""
+
                 };
             },
             methods: {
                 fnGetList() {
                     var self = this;
+                    var url = `http://localhost:3000/list?keyword=${self.keyword}&grade=${self.stuGrade}`
                     $.ajax({
-                        url: `http://localhost:3000/list?keyword=${self.keyword}&grade=${self.stuGrade}`,
+                        url: url,
                         dataType: "json",
                         type: "GET",
                         data: {},
@@ -99,40 +107,49 @@
                         }
                     });
                 },
+
                 fnUpdate(stuNo){
-                    console.log(stuNo);
                     this.updateStuNo = stuNo;
                 },
+
                 fnRemove(stuNo){
-                    if(!confirm("정말 삭제할거에요?")){
+                    if(!confirm("정말 삭제할거냐?")){
                         return;
-                    }
+                    };
+                    
                     var self = this;
+                    var url = `http://localhost:3000/delete?stuNo=${stuNo}`
                     $.ajax({
-                        url: `http://localhost:3000/delete?stuNo=${stuNo}`,
+                        url: url,
                         dataType: "json",
                         type: "GET",
                         data: {},
                         success: function (data) {
-                            self.list = data;
-                            console.log(data);
-                            self.fnGetList();                    
+                            alert(data[0].message);
+                        
+                            self.fnGetList();                     
                         }
                     });
-                    //alert는 확인밖에없음 confirm은 2가지 
+                },
+
+                fnSave(item){
+                    if(!confirm("저장 할거냐?")){
+                        return;
+                    }; 
+                    var self = this;
+                    var url = `http://localhost:3000/update?stuNo=${item.STU_NO}&stuName=${item.STU_NAME}&stuGrade=${item.STU_GRADE}&stuGender=${item.STU_GENDER}&stuDept=${item.STU_DEPT}`
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        type: "GET",
+                        data: {},
+                        success: function (data) {
+                            alert(data[0].message);
+                            self.updateStuNo = "";
+                            self.fnGetList();
+                        }
+                    });
                 }
-                // fnSearch(){
-                //     var self = this;
-                //     $.ajax({
-                //         url: "http://localhost:3000/search?id=" + self.stuNo,
-                //         dataType: "json",
-                //         type: "GET",
-                //         data: {},
-                //         success: function (data) {
-                //             self.list = data;
-                //         }
-                //     });
-                // }
 
             },
             mounted() {
@@ -143,4 +160,5 @@
         app.mount('#app');
     </script>
 </body>
+
 </html>
