@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        table,tr,td,th {
+           border: 1px solid;
+           text-align: center;
+           border-collapse: collapse ;
+       }
+    
+       tr,td,th{
+           padding : 5px 10px;
+       }
+       .btn {
+            background-color: rgb(141, 185, 39);
+            color: white;
+            padding: 15px;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .menu {
+            background-color: #f9f9f9;
+            width: 150px;
+            box-shadow: 1px 3px 8px 3px #e7e3e3;
+            display: none;
+        }
+        .menu a {
+            display: block;
+            padding: 10px;
+        }
+        .top-menu {
+            display: inline-block;
+            height: 200px;
+        }
+        .top-menu:hover .menu {
+            display: block;
+        }
+        .menu a:hover {
+            background-color: #ccc;
+        }
+        a:link, a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+    
+    </style>
+</head>
+<body>
+    <div id="app"> 
+        <h3>========= 이름 바꾸기</h3>
+        <div>{{name}}</div>
+        <div>
+            <input type="text" placeholder="이름 입력" v-model="newName">
+            <button @click ="fnChangeName()">이름 변경</button>
+        </div>
+        <h3>========= 나이 보이게 하기</h3>
+        <div v-if="isAge">{{age}}</div>
+        <button @click ="fnViewAge()">{{buttontxt}}</button>
+        <h3>========= 나이 정보 띄우기</h3>
+        <div>    
+            <input type="text" placeholder="나이 입력" v-model="newAge"></input>
+        </div>    
+        <div>
+            <button @click="ageGrade">확인!</button>
+        </div>
+        <div>{{ageis}}</div>
+        <h3>========= 나이 미성년자,20,30,40 나누기</h3>
+        <div>
+            <input type="text" placeholder="나이 입력" v-model="ageis2">
+            <button @click="change1()">나이 확인!</button>
+            <div>{{checkAge}}</div>
+        </div>
+        <h3>========= 과목 alert창으로 띄우기</h3>
+        <div>
+            <button @click="natanara">클릭!</button>
+        </div>
+        <h3>========= 과목 띄우기</h3>
+        <div v-for="item in list">{{item}}</div>
+        <h3>========= 순번으로 과목 띄우기</h3>
+        <div v-for="(item,index) in list">{{index+1}}.{{item}}</div>
+        <h3>========= userlist 나이 나열 </h3>
+        <div v-for="item in userList">{{item.name1}}</div>
+        <h3>========= table 만들기 </h3>
+        
+            <table>
+                <tr>
+                    <th>이름</th>
+                    <th>나이</th>
+                    <th>사는곳</th>
+                </tr>
+                <tr v-for="item in userList">
+                    <td>{{item.name1}}</td>
+                    <td>
+                        <span v-if ="item.age1>=30" style="color: red">{{item.age1}}</span>
+                        <span v-else>{{item.age1}}</span>
+                    </td>
+                    <td>{{item.addr1}}</td>
+                </tr>
+            </table>
+       
+        <h3>========= 버튼눌러서 그림띄우기 </h3>
+        <div class="top-menu">
+            <button class="btn">Dropdown</button>
+            <div class="menu">
+                <a href="javascript:;" @click="image(1)">이미지 1</a>
+                <a href="javascript:;" @click="image(2)">이미지 2</a>
+                <a href="javascript:;" @click="image(3)">아무내용 3</a>
+            </div>
+
+            <div v-if="menu == 1"><img src ="../images/html책.jfif" ></div>
+            <div v-if="menu == 2"><img src ="../images/jquery책.jfif" ></div>
+            <div v-if="menu == 3">바바바바바바ㅏ바바바ㅏ밥</div>
+
+        </div>
+    
+    </div>
+        
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+            data() {
+                return {
+                    // 변수 영역, ex) name : '홍길동', age : 20
+                    menu:"",
+                    name : "홍길동",
+                    age : 20,
+                    newName : "",
+                    isAge : false,
+                    buttontxt: "나이 보이게 하기",
+                    newAge :"",
+                    ageis:"",
+                    ageis2:"",
+                    checkAge:"",
+                    list : ["자바", "오라클", "thml/css", "javascript"],
+                    userList : [
+                        {name1 : "홍길동", age1 :20, addr1:"인천"},
+                        {name1 : "유재석", age1 :52, addr1:"서울"},
+                        {name1 : "강호동", age1 :13, addr1:"남양주"},
+                        {name1 : "신동엽", age1 :34, addr1:"함경북도"}
+                ],
+
+                };
+            },
+            methods: {
+               // 메소드 영역 
+               image(a){
+                this.menu= a
+               },
+                natanara(){
+                    for(var i=0; i<this.list.length; i++){
+                        alert(this.list[i])
+                    }
+                },
+                change1(){
+                    if(this.ageis2 >=40){
+                        this.checkAge="4O대 이상 입니다."
+                    }else if(this.ageis2 >=30){
+                        this.checkAge="3O대 입니다."
+                    }else if(this.ageis2 >=20){
+                        this.checkAge="2O대 입니다."
+                    }else if(19 >= this.ageis2 && this.ageis2>=1) {
+                        this.checkAge="미성년자 입니다."
+                    }else{
+                        this.checkAge="나이를 잘못 입력하셨습니다."
+                    }
+                    this.ageis2=" "
+                    
+
+                },  
+               fnChangeName(){
+                this.name = this.newName
+                this.newName=''
+               },
+               fnViewAge(){
+                this.isAge = !this.isAge
+                if(!this.isAge){
+                    this.buttontxt="나이 보이게 하기"
+                }else{
+                    this.buttontxt="나이 가리기"
+                }
+               },
+               ageGrade(){
+                if(this.newAge>=30){
+                    this.ageis="30세 이상입니다."
+                }else if(this.newAge=" "){
+                    this.ageis="나이를 입력해주세요"
+                }else{
+                    this.ageis="30세 미만입니다."
+                }
+                this.newAge=''
+               }
+
+            },
+            mounted() {
+                // 처음 시작할 때 실행되는 부분
+                console.log(this.menu);
+            }
+        });
+        app.mount('#app');
+</script>
