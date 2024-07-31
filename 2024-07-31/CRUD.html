@@ -31,33 +31,35 @@
             color : blue;
             font-weight: bold;
         }
-        #container{
+        
+        #container1{
             border: 2px solid rgb(255, 255, 255);
+            background-color: antiquewhite;
             padding: 20px;
             width: 270px;
             position: relative;
-            filter: drop-shadow(1px 5px 100px #7cbecac4);
+            filter: drop-shadow(1px 1px 4px #d8d795c4);
             border-radius: 10px;
             float: left;
             margin-right: 20px;
         
             
         }
-        #container2{
-            border: 2px solid rgb(255, 255, 255);
-            padding: 20px;
-            width: 5400px;
-            position: relative;
-            filter: drop-shadow(1px 5px 100px #7cbecac4);
-            border-radius: 10px;
-            margin-right: 20px;
-           
-            
-        }
+        
         .menu{
             font-size: 14px;
             color:darkslategray;
         }
+        .menu1{
+            font-size: 14px;
+            color:darkslategray;
+        }
+        .text3{
+            width: 250px;
+            height: 30px;
+            margin-bottom: 10px;
+        }    
+ 
         .text1{
             width: 250px;
             height: 30px;
@@ -75,10 +77,21 @@
             margin-top: 15px;
            width: 258px;
            height: 36px;
-           background-color: #00d9ff4d;
+           background-color: #738b314d;
            border-radius: 10px;
            color: white;
-           box-shadow:  1px 1px 1px rgb(16, 106, 109);
+           box-shadow:  1px 1px 1px rgb(196, 204, 179);
+          
+        }
+        .post2{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+            margin-top: 15px;
+           width: 258px;
+           height: 36px;
+           background-color: #eee;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(203, 216, 216);
           
         }
         .post1:active{
@@ -93,10 +106,16 @@
 <body>
     <div id="app">
         <!-- INSERT -->
-        <div id ="container">
+        <div id ="container1">
             <div><h3>학생추가</h3></div>
-            <div class="menu" >학번</div>
-            <input type="text" v-model="stuNo" class="text1">
+            <div class="menu1" >학번</div>
+            <template v-if="bb==2">
+                <input type="text" v-model="stuNo" class="text3">
+                </template>       
+            <template v-else if="bb==1">
+            <input type="text" v-model="stuNo" class="text3" disabled>
+            </template>
+            <button @click="fnIdCheck">중복체크</button>
             <div class="menu" >이름</div>
             <input type="text" v-model="stuName" class="text1">
             <div class="menu" >학과</div>
@@ -112,7 +131,8 @@
                 <label><input type="radio" name="gender" value="M" v-model="stuGender"checked> 남자</label> 
                 <label><input type="radio" name="gender" value="F" v-model="stuGender"> 여자</label>    
             </div>
-            <button @click="post0()" class="post1">제출</button>
+            <template v-if="cc==2"><button  class="post2">제출</button></template>
+            <template v-else if="cc==1"><button @click="fnInsert()" class="post1">제출</button></template>
         </div>
        <!-- SELECT -->
         <input placeholder="검색어" v-model="keyword" @keyup.enter="fnGetList">
@@ -175,13 +195,42 @@
                     stuName : '',
                     stuDept : '',
                     stuGrade1 :"",  
-                    stuGender :""
+                    stuGender :"",
+                    bb:"2",
+                    cc:"2"
 
                 };
             },
             methods: {
-                post0() {
-                        
+                fnIdCheck(){
+                var self = this;
+                if(this.stuNo.length != 8){
+                    alert("학번은 8글자!");
+                    return;
+                }
+                var url = `http://localhost:3000/idCheck?stuNo=${this.stuNo}`
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    type: "GET",
+                    data: {},
+                    success: function (data) {
+                        console.log(data);
+                        console.log(data[0].CNT);
+                        if(data[0].CNT > 0){
+                            alert("이미 사용중인 아이디!");                         
+                        } else {
+                            alert("사용가능한 아이디!");
+                            self.isCheck = true;
+                            self.bb = 1;
+                            self.cc = 1;
+
+                        }
+                    }
+                    
+                });
+            },
+                fnInsert() {                      
                         var self = this;
                         $.ajax({
                             url: `http://localhost:3000/insert?stuNo=${this.stuNo}&stuName=${this.stuName}&stuDept=${this.stuDept}&stuGrade=${this.stuGrade1}&stuGender=${this.stuGender}`,
@@ -191,7 +240,16 @@
                             success: function (data) {
                                 // self.list = data;
                                 // console.log(data);
+                                alert("추가완료");
                                 self.fnGetList();
+                                self.stuNo =''
+                                self.stuName = ''
+                                self.stuDept = ''
+                                self.stuGrade1 =""  
+                                self.stuGender =""
+                                self.bb="2"
+                                self.cc="2"
+                               
                             }
                         });
                     },

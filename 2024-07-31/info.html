@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        #container{
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"> 
+            <h3>회원가입</h3>
+            <div><input type="text" placeholder="아이디" v-model="memberid"><span v-if="memberid.length <= 5"> 아이디는 5자 이상</span></div>
+            
+            <div><input type="password" placeholder="비밀번호" v-model="memberpw"><span v-if="memberpw.length <= 6"> 비밀번호는 6자 이상</span></div>
+            <div><input type="password" placeholder="비밀번호 확인" v-model="memberpw2"><span v-if="memberpw != memberpw2"> 비밀번호 틀립니다.</span></div> 
+            
+            <div><input type="text" placeholder="이름" v-model="membername"></div>
+            <div><input type="email" placeholder="이메일" v-model="memberemail"></div>
+            <div><input type="text" placeholder="전화번호" v-model="memberphone"></div>
+            <div>
+                <label><input type="radio" name="gender" value="M" v-model="membergender"checked> 남자</label> 
+                <label><input type="radio" name="gender" value="F" v-model="membergender"> 여자</label>    
+            </div>
+            <div><button @click="member_info()">회원가입</button></div>
+
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+            data() {
+                return {
+                   // 사용자 정보 맵
+                        memberid : "", //로그인 아이디
+                        memberpw : "",  //로그인 비밀번호
+                        membername : "", //로그인 이름
+                        memberemail : "",  //로그인 이메일
+                        memberphone : "", //로그인 전화번호
+                        membergender : "",  //로그인 성별
+                        memberpw2 : ""  //로그인 확인 비밀번호
+                    
+                };
+            },
+            
+            methods: {
+            //    // 메소드 영역
+            //    member_info(){
+            //     var self = this;
+            //         $.ajax({
+            //             url: `http://localhost:3000/login`,
+            //             dataType: "json",
+            //             type: "POST",
+            //             data: JSON.stringify(self.user),
+            //             contentType : "application/json",
+            //             success: function (data) {
+            //                 alert("성공?")
+            //             }
+            //         });
+            //    },
+               member_info() {                      
+                        var self = this;
+                        $.ajax({
+                            url: `http://localhost:3000/login?memid=${this.memberid}&mempw=${this.memberpw}&memname=${this.membername}&mememail=${this.memberemail}&memphone=${this.memberphone}&memgender=${this.membergender}`,
+                            dataType: "json",
+                            type: "GET",
+                            data: {},
+                            success: function (data) {
+                                // self.list = data;
+                                // console.log(data);
+                                alert("추가완료");
+                               
+                            }
+                        });
+                    },
+                    
+ 
+            },
+            mounted() {
+                // 처음 시작할 때 실행되는 부분
+            }
+        });
+        app.mount('#app');
+</script>
