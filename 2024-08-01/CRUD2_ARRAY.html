@@ -135,7 +135,8 @@
             <template v-else if="cc==1"><button @click="fnInsert()" class="post1">제출</button></template>
         </div>
        <!-- SELECT -->
-        <input placeholder="검색어" v-model="keyword" @keyup.enter="fnGetList">
+       <div>
+       <input placeholder="검색어" v-model="keyword" @keyup.enter="fnGetList" style="margin-left: 126px;">
         <!-- @keyup.enter 엔터 눌렀을때 발생하는 이벤트키  -->
         <select v-model="stuGrade" @change="fnGetList" style="margin-left:10px;">
             <option value="">::전체::</option>
@@ -145,8 +146,20 @@
         </select>
         <button @click="fnGetList" style="margin-left:10px;">검색</button>
         <button @click="fnRemove(selectItem)" style="margin-left:10px;">삭제</button>
+        </div>
+        <!--정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬 -->
+        <div>
+        <input type="radio" style="margin-left: 235px;" value="ASC" v-model="orderby"  @change="fnGetList">오름차순
+        <input type="radio" value="DESC" v-model="orderby"  @change="fnGetList">내림차순
+        <select style="margin-left:10px;" v-model="orderlist" @change="fnGetList">
+            <option value="STU_NAME">이름순</option>
+            <option value="STU_GRADE">학년순</option>
+            <option value="STU_NO">학번순</option>
+        </select>
+        <!--정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬정렬  -->
+        </div>
         <!-- 테이블 ,수정,삭제 -->
-        <div style="margin-top : 20px;"></div>
+        <div style="margin-top : 5px;"></div>
         <table>
             <tr>
                 <th>선택</th>
@@ -202,11 +215,15 @@
                     bb:"2",
                     cc:"2",
                     selectItem:"",
-                    list1 :[]
+                    list1 :[],
+                    orderby:"ASC",
+                    orderlist:"STU_NAME"
+
 
                 };
             },
             methods: {
+           
                 fnIdCheck(){
                 var self = this;
                 if(this.stuNo.length != 8){
@@ -262,7 +279,9 @@
                     },
                 fnGetList() {
                     var self = this;
-                    var url = `http://localhost:3000/list?keyword=${self.keyword}&grade=${self.stuGrade}`
+                    console.log(self.orderlist)
+                    var url = `http://localhost:3000/list?
+                    keyword=${self.keyword}&grade=${self.stuGrade}&orderby=${self.orderby}&orderlist=${self.orderlist}`;
                     $.ajax({
                         url: url,
                         dataType: "json",
@@ -270,7 +289,7 @@
                         data: {},
                         success: function (data) {
                             self.list = data;
-                            console.log(data);
+                            //console.log(data);
                         }
                     });
                 },
@@ -338,7 +357,7 @@
                     });
                 },
                 fnInfo(stuNo){
-                    location.href=`[H]info.html?stuNo=${stuNo}`;
+                    location.href=`H_info.html?stuNo=${stuNo}`;
                 }
 
             },
