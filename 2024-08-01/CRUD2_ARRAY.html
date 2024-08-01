@@ -280,8 +280,7 @@
                 fnGetList() {
                     var self = this;
                     console.log(self.orderlist)
-                    var url = `http://localhost:3000/list?
-                    keyword=${self.keyword}&grade=${self.stuGrade}&orderby=${self.orderby}&orderlist=${self.orderlist}`;
+                    var url = `http://localhost:3000/list?keyword=${self.keyword}&grade=${self.stuGrade}&orderby=${self.orderby}&orderlist=${self.orderlist}`;
                     $.ajax({
                         url: url,
                         dataType: "json",
@@ -289,7 +288,7 @@
                         data: {},
                         success: function (data) {
                             self.list = data;
-                            //console.log(data);
+                            console.log(data);
                         }
                     });
                 },
