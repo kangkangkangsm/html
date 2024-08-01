@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<style>
+        #container{
+            border: 2px solid rgb(255, 255, 255);
+            background-color: rgba(202, 193, 180, 0.295);
+            padding: 20px;
+            width: 270px;
+            position: relative;
+            filter: drop-shadow(1px 1px 4px #35341036);
+            border-radius: 10px;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .textbox{
+            width: 250px;
+            height: 30px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+
+        }
+        .btn{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+            margin-top: 5px;
+            margin-bottom: 4px;
+           width: 258px;
+           height: 36px;
+           background-color: #738b317e;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(196, 204, 179);
+          
+        }
+        .btn2{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+           margin-top: 5px;
+           width: 258px;
+           height: 36px;
+           background-color: #738b317e;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(196, 204, 179);
+          
+        }
+        .btn3{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+           margin-top: 5px;
+           width: 258px;
+           height: 36px;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(196, 204, 179);
+          
+        }
+</style>
+<body>
+    <div id="app"> 
+        <div id="container">
+        <div>
+            <input class="textbox" type="text" placeholder="아이디" v-model="userid">
+        </div>
+        <div>    
+            <input class="textbox"  type="password" placeholder="비밀번호" v-model="userpwd">
+        </div>
+        <div>
+            <button class="btn" @click="fnLogin">로그인</button>
+        </div>    
+        </div>
+    </div>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                userid:"",
+                userpwd:""
+
+            };
+        },
+        methods: {
+            fnLogin(){
+            var self = this;
+            // if(this.userid.length != 8){
+            //     alert("아이디는 8글자!");
+            //     return;
+            // }
+            var url = `http://localhost:3000/checkcheck?userid=${this.userid}&userpwd=${this.userpwd}`
+            $.ajax({
+                url: url,
+                dataType: "json",
+                type: "GET",
+                data: {},
+                success: function (data) {
+                    console.log(data);
+                    console.log(data[0].CNT);
+                    if(data[0].CNT >0){
+                                location.href="home.html";
+                                // 페이지 이동 <a href=""> 랑 같음 
+                            } else {
+                                alert("아이디 패스워드 다시확인!!!");
+                            }
+                }
+                
+            });
+        },
+           
+        },
+        mounted() {
+            // 처음 화면이 실행될때 호출할 부분
+            this.fnGetList();
+        }
+    });
+    app.mount('#app');
+</script>
+</body>
+
+</html>

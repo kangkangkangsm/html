@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        #container{
+            border: 2px solid rgb(255, 255, 255);
+            background-color: rgba(202, 193, 180, 0.295);
+            padding: 20px;
+            width: 270px;
+            position: relative;
+            filter: drop-shadow(1px 1px 4px #35341036);
+            border-radius: 10px;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .textbox{
+            width: 250px;
+            height: 30px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+
+        }
+        .btn{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+            margin-top: -15px;
+            margin-bottom: 4px;
+           width: 258px;
+           height: 36px;
+           background-color: #738b317e;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(196, 204, 179);
+          
+        }
+        .btn2{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+           margin-top: 5px;
+           width: 258px;
+           height: 36px;
+           background-color: #738b317e;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(196, 204, 179);
+          
+        }
+        .btn3{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+           margin-top: 5px;
+           width: 258px;
+           height: 36px;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(196, 204, 179);
+          
+        }
+
+    
+    </style>
+</head>
+<body>
+    <div id="app"> 
+        <div id="container">
+            <h3>회원가입</h3>
+            <div>
+                <template v-if="!bb"><input class="textbox" type="text" placeholder="아이디" v-model="memberid" disabled></template>
+                <template v-if="bb"><input  class="textbox" type="text" placeholder="아이디(5자 이상)" v-model="memberid"></template>
+                
+                  <template v-if="isCheck"><button class="btn" @click="checkid">중복체크</button></template>
+            </div>
+            
+            <div><input class="textbox" type="password" placeholder="비밀번호(6자 이상)" v-model="memberpw">
+            </div>
+            <div><input class="textbox" type="password" placeholder="비밀번호 확인" v-model="memberpw2">
+            
+            <div><input class="textbox" type="text" placeholder="이름" v-model="membername"></div>
+            <div><input class="textbox" type="email" placeholder="이메일" v-model="memberemail"></div>
+            <div><input class="textbox" type="text" placeholder="전화번호" v-model="memberphone"></div>
+            <div>
+                <label><input type="radio" name="gender" value="M" v-model="membergender"> 남자</label> 
+                <label><input type="radio" name="gender" value="F" v-model="membergender"> 여자</label>    
+            </div>
+            <div>
+            <template v-if="!cc"><button class="btn2" @click="fnInsert()">회원가입</button></template>
+            <template v-if="cc"><button  class="btn3" @click="fnInsert()" disabled>회원가입</button></template>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+            data() {
+                return {
+                   // 사용자 정보 맵
+                        memberid : "", //로그인 아이디
+                        memberpw : "",  //로그인 비밀번호
+                        membername : "", //로그인 이름
+                        memberemail : "",  //로그인 이메일
+                        memberphone : "", //로그인 전화번호
+                        membergender : "",  //로그인 성별
+                        memberpw2 : "",  //로그인 확인 비밀번호
+                        isCheck : true,
+                            bb : true,
+                            cc : true
+                    
+                };
+            },
+            
+            methods: {
+                
+                checkid(){
+                    if(this.memberid.length <= 4){
+                alert("아이디는 5글자 이상!");
+                return;
+            }
+                var self = this;
+                var url = `http://localhost:3000/idCheckcheck?memberid=${this.memberid}`
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    type: "GET",
+                    data: {},
+                    success: function (data) {
+                        console.log(data);
+                        console.log(data[0].CNT);
+                        if(data[0].CNT > 0){
+                            alert("이미 사용중인 아이디!");                         
+                        } else {
+                            alert("사용가능한 아이디!");
+                            self.isCheck = false;
+                            self.bb = false;
+                            self.cc = false;
+
+                        }
+                    }
+                    
+                });
+            },
+                
+        fnInsert() {                      
+            var self = this;
+            if(this.memberid.length <= 4){
+                alert("아이디는 5글자 이상!");
+                return;
+            }
+            if(this.memberpw.length <= 5){
+                alert("비밀번호는 6글자 이상!");
+                return;
+            }
+            if (this.memberpw !== this.memberpw2) {
+                    alert('비밀번호가 일치하지 않습니다.');
+                    return;
+                }
+            if (!this.memberid || !this.memberpw || !this.memberpw2 || !this.membername || !this.memberemail || !this.memberphone || !this.membergender) {
+                    alert('모든 칸을 채우세여');
+                    return;
+            }
+                        $.ajax({
+                            url: `http://localhost:3000/insert2?memberid=${this.memberid}&memberpw=${this.memberpw}&membername=${this.membername}&memberemail=${this.memberemail}&memberphone=${this.memberphone}&membergender=${this.membergender}`,
+                            dataType: "json",
+                            type: "GET",
+                            data: {},
+                            success: function (data) {
+                                alert("회원가입 완료! 메인페이지로 이동합니다");
+                                location.href="login.html";
+                               
+                            }
+                        });
+                    }
+            },
+            mounted() {
+                // 처음 시작할 때 실행되는 부분
+            }
+        });
+        app.mount('#app');
+</script>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app"> 
+<!-- 3. 아이디, 비밀번호를 입력받아서 로그인 하는 페이지 구현
+ - 없는 아이디를 입력할 경우 '없는 아이디 입니다' 출력
+ - 아이디는 있지만 비밀번호가 다를 경우 '비밀번호를 확인하세요' 출력
+ - 아이디/비밀번호 모두 일치할 경우 'home.html' 페이지로 이동 -->
+        <div>
+            <input type="text" placeholder="아이디" v-model="memberId">
+        </div>
+        <div>
+            <input type="password" placeholder="비밀번호" v-model="memberPw">
+        </div>
+        <div>
+            <button @click="pass()">클릭!</button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+            data() {
+                return {
+                    // 변수 영역, ex) name : '홍길동', age : 20
+                    user : {
+                    memberId : '',
+                    memberPw : ''
+                }
+                };
+            },
+            methods: {
+                pass(){
+                    var self = this;
+                    $.ajax({
+                        url: `http://localhost:3000/login1`,
+                        dataType: "json",
+                        type: "POST",
+                        data: JSON.stringify(self.user),
+                        contentType : "application/json",
+                        success: function (data) {
+                            if(data[0].CNT >0){
+                                location.href="home.html";
+                                // 페이지 이동 <a href=""> 랑 같음 
+                            } else {
+                                alert("아이디 패스워드 다시확인해라!!!");
+                            }
+                        }
+                    
+                });
+            },
+            
+            },
+            mounted() {
+                // 처음 시작할 때 실행되는 부분
+            }
+        });
+        app.mount('#app');
+</script>

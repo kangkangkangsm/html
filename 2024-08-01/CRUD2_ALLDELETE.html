@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta charset="EUC-KR">
+    <title>Insert title here</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        tr,
+        td,
+        th {
+            padding: 5px 10px;
+        }
+        td input {
+            width: 70px;
+        }
+        .txt {
+            font-weight: bold;
+        }
+        .txt2 {
+            color : blue;
+            font-weight: bold;
+        }
+        
+        #container1{
+            border: 2px solid rgb(255, 255, 255);
+            background-color: antiquewhite;
+            padding: 20px;
+            width: 270px;
+            position: relative;
+            filter: drop-shadow(1px 1px 4px #d8d795c4);
+            border-radius: 10px;
+            float: left;
+            margin-right: 20px;
+        
+            
+        }
+        
+        .menu{
+            font-size: 14px;
+            color:darkslategray;
+        }
+        .menu1{
+            font-size: 14px;
+            color:darkslategray;
+        }
+        .text3{
+            width: 250px;
+            height: 30px;
+            margin-bottom: 10px;
+        }    
+ 
+        .text1{
+            width: 250px;
+            height: 30px;
+            margin-bottom: 10px;
+            
+        }
+        .text2{
+            width: 258px;
+            height: 36px;
+            margin-bottom: 10px;
+            
+        }
+        .post1{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+            margin-top: 15px;
+           width: 258px;
+           height: 36px;
+           background-color: #738b314d;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(196, 204, 179);
+          
+        }
+        .post2{
+            border: 1px solid rgba(255, 255, 255, 0.315);
+            margin-top: 15px;
+           width: 258px;
+           height: 36px;
+           background-color: #eee;
+           border-radius: 10px;
+           color: white;
+           box-shadow:  1px 1px 1px rgb(203, 216, 216);
+          
+        }
+        .post1:active{
+           
+            margin-top:1px;
+            box-shadow: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- INSERT -->
+        <!-- <div id ="container1">
+            <div><h3>학생추가</h3></div>
+            <div class="menu1" >학번</div>
+            <template v-if="bb==2">
+                <input type="text" v-model="stuNo" class="text3">
+                </template>       
+            <template v-else if="bb==1">
+            <input type="text" v-model="stuNo" class="text3" disabled>
+            </template>
+            <button @click="fnIdCheck">중복체크</button>
+            <div class="menu" >이름</div>
+            <input type="text" v-model="stuName" class="text1">
+            <div class="menu" >학과</div>
+            <input type="text" v-model="stuDept" class="text1">
+            <div class="menu">학년</div>
+            <select class="text2" v-model="stuGrade1">
+                <option value="">학년을 선택하세요</option>
+                <option value="1">1학년</option>
+                <option value="2">2학년</option>
+                <option value="3">3학년</option>
+            </select>
+            <div>
+                <label><input type="radio" name="gender" value="M" v-model="stuGender"checked> 남자</label> 
+                <label><input type="radio" name="gender" value="F" v-model="stuGender"> 여자</label>    
+            </div>
+            <template v-if="cc==2"><button  class="post2">제출</button></template>
+            <template v-else if="cc==1"><button @click="fnInsert()" class="post1">제출</button></template>
+        </div> -->
+       <!-- SELECT -->
+        <input placeholder="검색어" v-model="keyword" @keyup.enter="fnGetList">
+        <!-- @keyup.enter 엔터 눌렀을때 발생하는 이벤트키  -->
+        <select v-model="stuGrade" @change="fnGetList" style="margin-left:10px;">
+            <option value="">::전체::</option>
+            <option value="1">1학년</option>
+            <option value="2">2학년</option>
+            <option value="3">3학년</option>
+        </select>
+        <button @click="fnGetList" style="margin-left:10px;">검색</button>
+        <button @click="fnRemove(selectItem)" style="margin-left:10px;">삭제</button>
+        <!-- 테이블 ,수정,삭제 -->
+        <div style="margin-top : 20px;"></div>
+        <table>
+            <tr>
+                <!-- <th><input type="checkbox" v-model="allSelected" @change="All" /></th> -->
+                <th><input type="checkbox" @click="fnAllCheck"></th>
+                <th>학번</th>
+                <th>이름</th>
+                <th>학과</th>
+                <th>학년</th>
+                <th>성별</th>
+                <!-- <th>수정</th> -->
+            </tr>
+            <tr v-for="(item,index) in list">
+                <td><input type="checkbox" for ="select":id="'stu_'+ index" style="width: 10px;" name="listSelect" v-model="selectList" :value="item.STU_NO"></td>
+                <!-- :value= : 동적처리 -->
+                <template v-if="item.STU_NO == updateStuNo">
+                    <td>{{item.STU_NO}}</td>
+                    <td><input v-model="item.STU_NAME"></td>
+                    <td><input v-model="item.STU_DEPT"></td>
+                    <td><input v-model="item.STU_GRADE"></td>
+                    <td><input v-model="item.STU_GENDER"></td>
+                    <td><button @click="fnSave(item)">저장</button></td>
+                </template>
+                <template v-else>
+                    <td><label :for="'stu_'+ index">{{item.STU_NO}}</label></td>
+                    <td>{{item.STU_NAME}}</td>
+                    <td>{{item.STU_DEPT}}</td>
+                    <td>{{item.STU_GRADE}}</td>
+                    <td>
+                        <span v-if="item.STU_GENDER == 'M'">남자</span>
+                        <span v-else>여자</span>
+                    </td>
+                    <!-- <td><button @click="fnUpdate(item.STU_NO)">수정</button></td> -->
+                </template>    
+                
+            </tr>
+           
+        </table>
+   
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    list : [],
+                    keyword : "",
+                    updateStuNo : "",
+                    stuGrade :"",
+                    stuNo : '',
+                    stuName : '',
+                    stuDept : '',
+                    stuGrade1 :"",  
+                    stuGender :"",
+                    bb:"2",
+                    cc:"2",
+                    selectList:[],
+                    defaultList:[],
+                    isAllCheck : false
+                    
+
+                };
+            },
+            methods: {
+                fnIdCheck(){
+                var self = this;
+                if(this.stuNo.length != 8){
+                    alert("학번은 8글자!");
+                    return;
+                }
+                var url = `http://localhost:3000/idCheck?stuNo=${this.stuNo}`
+                $.ajax({
+                    url: url,
+                    dataType: "json",
+                    type: "GET",
+                    data: {},
+                    success: function (data) {
+                        console.log(data);
+                        console.log(data[0].CNT);
+                        if(data[0].CNT > 0){
+                            alert("이미 사용중인 아이디!");                         
+                        } else {
+                            alert("사용가능한 아이디!");
+                            self.isCheck = true;
+                            self.bb = 1;
+                            self.cc = 1;
+
+                        }
+                    }
+                    
+                });
+            },
+                fnInsert() {                      
+                        var self = this;
+                        $.ajax({
+                            url: `http://localhost:3000/insert?stuNo=${this.stuNo}&stuName=${this.stuName}&stuDept=${this.stuDept}&stuGrade=${this.stuGrade1}&stuGender=${this.stuGender}`,
+                            dataType: "json",
+                            type: "GET",
+                            data: {},
+                            success: function (data) {
+                                // self.list = data;
+                                // console.log(data);
+                                alert("추가완료");
+                                self.fnGetList();
+                                self.stuNo =''
+                                self.stuName = ''
+                                self.stuDept = ''
+                                self.stuGrade1 =""  
+                                self.stuGender =""
+                                self.bb="2"
+                                self.cc="2"
+
+                                
+                               
+                            }
+                        });
+                    },
+                fnGetList() {
+                    var self = this;
+                    var url = `http://localhost:3000/list?keyword=${self.keyword}&grade=${self.stuGrade}`
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        type: "GET",
+                        data: {},
+                        success: function (data) {
+                            self.list = data;
+                            for(var i=0; i<self.list.length; i++){
+                                self.defaultList.push(self.list[i].STU_NO);
+                                // LIST값을 넣을땐 PUSH롷 넣어야함
+                            }
+                            
+                        
+                        }
+                    });
+                },
+
+                fnUpdate(stuNo){
+                    this.updateStuNo = stuNo;
+                },
+
+                fnRemove(stuNo){
+                    var self = this;
+                    console.log(self.selectList);
+                    if(!confirm("정말 삭제할거냐?")){
+                        return;
+                    };
+                    var url = `http://localhost:3000/delete2?stuNo=${self.selectList}`
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        type: "GET",
+                        data: {},
+                        success: function (data) {
+                            alert(data[0].message);
+                        
+                            self.fnGetList();                     
+                        }
+                    });
+                },
+// selectItem을 url안에 직접 입력하는 방법도있음 위에랑 똑같은기능임ㅎ
+                // fnRemove(){
+                //     if(!confirm("정말 삭제할거냐?")){
+                //         return;
+                //     };
+                    
+                //     var self = this;
+                //     var url = `http://localhost:3000/delete?stuNo=${self.selectItem}`
+                //     $.ajax({
+                //         url: url,
+                //         dataType: "json",
+                //         type: "GET",
+                //         data: {},
+                //         success: function (data) {
+                //             alert(data[0].message);
+                        
+                //             self.fnGetList();                     
+                //         }
+                //     });
+                // },
+
+                fnSave(item){
+                    if(!confirm("저장 할거냐?")){
+                        return;
+                    }; 
+                    var self = this;
+                    var url = `http://localhost:3000/update?stuNo=${item.STU_NO}&stuName=${item.STU_NAME}&stuGrade=${item.STU_GRADE}&stuGender=${item.STU_GENDER}&stuDept=${item.STU_DEPT}`
+                    $.ajax({
+                        url: url,
+                        dataType: "json",
+                        type: "GET",
+                        data: {},
+                        success: function (data) {
+                            alert(data[0].message);
+                            self.updateStuNo = "";
+                            self.fnGetList();
+                        }
+                    });
+                },
+            //     All() {
+            // if (this.allSelected) {
+            //     // 모든 체크박스 선택
+            //     this.selectList = this.list.map(item => item.STU_NO);
+            // } else {
+            //     // 모든 체크박스 해제
+            //     this.selectList = [];
+            // }
+            // },
+
+            // 전체선택 
+            fnAllCheck(){
+                var self = this;
+                self.isAllCheck = !self.isAllCheck; 
+                if(self.isAllCheck){
+                self.selectList = self.defaultList;
+                } else {
+                    self.selectList = [];
+                }
+            }
+                
+
+            },
+            
+            mounted() {
+                // 처음 화면이 실행될때 호출할 부분
+                this.fnGetList();
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
