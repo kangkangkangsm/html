@@ -41,7 +41,7 @@
     }
     #container {
       width:1200px;
-      height:1500px;   
+      height:1000px;   
       margin:20px auto;  
     
       } 
@@ -50,6 +50,7 @@
             height: 250px;
             background-image : url('../images/포기.jpg');
             float : left;
+            margin-left:5px;
             border-radius: 20%;
             display: inline-block;
             animation: ani3 3s infinite linear;
@@ -124,14 +125,14 @@
 
     @keyframes ani3 {
             0% {
-                transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+                transform: perspective(500px) rotateX(0deg) rotateY(0deg);
          }
             50%{
-                transform: perspective(500px) rotateX(0deg) rotateY(10deg);
+                transform: perspective(300px) rotateX(0deg) rotateY(10deg);
                 
             }
             100%{
-                transform: perspective(500px) rotateX(0deg) rotateY(0deg);
+                transform: perspective(300px) rotateX(0deg) rotateY(0deg);
                 
             }
         }
@@ -140,7 +141,7 @@
     </style>
 </head>
 
-<body>
+<body >
     <div id="container">
         <!-- 사이드바 -->
         <aside id="sidebar">
@@ -150,7 +151,6 @@
             </div>
             <div id="namecard2"    
                 <h1>Kang Seommin</h1>    
-               
             </div>
             <div id="detail">
                 <p>Incheon, Korea</p>
