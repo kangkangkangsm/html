@@ -1,5 +1,5 @@
 /* #header 섹션 */
-#header {
+  #header {
     width: 100%; /* 너비를 100%로 설정 */
     border-bottom: 1px solid #ddd; /* 아래 테두리를 회색(ddd) 1픽셀 두께의 실선으로 설정 */
     background-color: #fff; /* 배경색을 흰색으로 설정 */
